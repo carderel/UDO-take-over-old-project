@@ -6,7 +6,7 @@
 
 set -e
 
-REPO_URL="https://raw.githubusercontent.com/carderel/UDO-universal-orchestrator-v4/main"
+REPO_URL="https://raw.githubusercontent.com/carderel/UDO-take-over-old-project/main"
 TAKEOVER_VERSION="1.0.0"
 
 echo "🔄 UDO TAKEOVER - Project Audit & Orchestration v$TAKEOVER_VERSION"
