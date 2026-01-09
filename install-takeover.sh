@@ -6,8 +6,8 @@
 
 set -e
 
-REPO_URL="https://raw.githubusercontent.com/carderel/UDO-take-over-old-project/main"
-TAKEOVER_VERSION="1.0.0"
+REPO_URL="https://raw.githubusercontent.com/carderel/UDO-universal-orchestrator-v4/main"
+TAKEOVER_VERSION="1.1.0"
 
 echo "🔄 UDO TAKEOVER - Project Audit & Orchestration v$TAKEOVER_VERSION"
 echo "============================================================"
@@ -652,85 +652,369 @@ DO NOT proceed to Phase 5 without explicit choice.
 ## PHASE 5: TRANSITION TO UDO
 
 ### Objectives
-Install full UDO system, pre-populated with audit findings.
+Install full UDO system, pre-populated with audit findings, and hand off to ORCHESTRATOR.md
 
-### Transition Process
+### ⚠️ CRITICAL: This is the only phase where you make changes to the project.
 
-#### 5.1 Install Standard UDO
-Run the standard UDO installer (or embed it).
+---
 
-#### 5.2 Pre-populate PROJECT_STATE.json
-Based on chosen option, convert findings to todos:
+### Step 5.1: Confirm User Choice
+Before proceeding, confirm:
+```
+You've chosen Option {X}: {name}
+
+This will:
+1. Create a checkpoint of the current project state
+2. Install the full UDO orchestration system
+3. Convert {N} audit findings into prioritized todos
+4. Set up ongoing project management
+
+Proceed? (yes/no)
+```
+
+**STOP and wait for explicit "yes" before continuing.**
+
+---
+
+### Step 5.2: Create Pre-Takeover Checkpoint
+**Do this FIRST, before any other changes.**
+
+1. Create folder: `.checkpoints/pre-takeover/`
+2. Copy these items into it (if they exist):
+   - All source code folders
+   - Configuration files
+   - package.json / requirements.txt / etc.
+   - README.md
+   - Any other project files
+3. Create `.checkpoints/pre-takeover/manifest.txt` listing what was saved
+4. Note: Do NOT copy node_modules, vendor, .git, dist, build folders
+
+Tell user:
+```
+💾 Pre-takeover checkpoint created at .checkpoints/pre-takeover/
+You can restore to this state anytime with: "Rollback to checkpoint pre-takeover"
+```
+
+---
+
+### Step 5.3: Install UDO Core Files
+Create each of these files with the content specified below:
+
+#### Create: ORCHESTRATOR.md
+(Full UDO orchestrator instructions - the AI should create this with standard UDO content)
+
+#### Create: START_HERE.md
+```markdown
+# 🚀 New AI? Start Here.
+
+Welcome to this project. Follow these steps to get oriented:
+
+## ⚠️ This Project Has Been Taken Over
+
+- **Takeover date**: {date}
+- **Audit report**: `.takeover/audit-report.md`
+- **Chosen path**: Option {X} - {name}
+- **Pre-takeover snapshot**: `.checkpoints/pre-takeover/`
+
+## Quick Start (60 seconds)
+
+1. **Read your instructions:** `ORCHESTRATOR.md`
+2. **Check current status:** `PROJECT_STATE.json`
+3. **Review audit findings:** `.takeover/audit-report.md`
+4. **Check for mistakes to avoid:** `LESSONS_LEARNED.md`
+
+## Then Say:
+
+> "I've reviewed the project and takeover audit. Current status: [summarize]. Ready to work on [next todo]."
+
+## To Undo Everything
+
+If the takeover approach isn't working:
+```
+Rollback to checkpoint pre-takeover
+```
+This restores the project to its exact state before takeover.
+```
+
+#### Create: PROJECT_STATE.json
+Convert audit findings to todos based on chosen option:
+
+**Option A (Quick Wins):** Only critical findings + highest-impact improvements
+**Option B (Stabilization):** All critical + all important findings
+**Option C (Modernization):** All findings from all categories
+**Option D (Rebuild):** Rebuild tasks + migration from old system
 
 ```json
 {
-  "goal": "Takeover and {option} of {project name}",
+  "goal": "Takeover and {option_name} of {project_name}",
   "phase": "ready",
   "todos": [
     {
       "id": "T001",
-      "title": "{finding title}",
+      "title": "{finding from audit}",
+      "priority": "critical",
       "source": "takeover-audit",
-      "priority": "critical|important|improvement",
-      "category": "{audit category}",
       "evidence": "{file:line}",
-      "effort": "S|M|L"
+      "effort": "S"
+    },
+    {
+      "id": "T002", 
+      "title": "{next finding}",
+      "priority": "important",
+      "source": "takeover-audit",
+      "evidence": "{file:line}",
+      "effort": "M"
+    }
+  ],
+  "in_progress": [],
+  "completed": [],
+  "blockers": [],
+  "agent_registry": [],
+  "checkpoints": [
+    {
+      "id": "pre-takeover",
+      "timestamp": "{ISO timestamp}",
+      "type": "manual",
+      "trigger": "takeover-transition",
+      "description": "Project state before UDO takeover"
     }
   ],
   "takeover": {
-    "completed": "{timestamp}",
-    "option_chosen": "A|B|C|D",
+    "completed": "{ISO timestamp}",
+    "option_chosen": "{A|B|C|D}",
+    "option_name": "{Quick Wins|Stabilization|Modernization|Rebuild}",
     "audit_report": ".takeover/audit-report.md",
-    "original_checkpoint": ".checkpoints/pre-takeover/"
-  }
+    "findings_converted": {
+      "critical": 0,
+      "important": 0,
+      "improvement": 0,
+      "total_todos": 0
+    }
+  },
+  "auto_checkpoint": {
+    "enabled": true,
+    "trigger_on": {
+      "todos_completed": 3,
+      "phase_complete": true,
+      "session_end": true,
+      "before_risky_operation": true
+    },
+    "last_auto_checkpoint": null,
+    "todos_since_checkpoint": 0
+  },
+  "current_session": {
+    "started": "",
+    "llm": "",
+    "actions": []
+  },
+  "notes": "Takeover complete. Ready to begin work."
 }
 ```
 
-#### 5.3 Create Pre-Takeover Checkpoint
-Before ANY changes:
-1. Create `.checkpoints/pre-takeover/`
-2. Store current state
-3. This is the "undo everything" safety net
+#### Create: PROJECT_META.json
+```json
+{
+  "name": "{project name from discovery}",
+  "description": "{description from executive summary}",
+  "client": "",
+  "stakeholders": [],
+  "started": "{original project date if known}",
+  "takeover_date": "{today's date}",
+  "deadline": "",
+  "tags": ["{tech stack tags}"],
+  "constraints": ["{constraints from audit}"],
+  "success_criteria": ["{from user's definition}"],
+  "notes": "Project taken over via UDO audit process."
+}
+```
 
-#### 5.4 Retain Audit Agents
-Copy useful audit agents to `.agents/`:
-- Rename to active agent format
-- They become available specialists for ongoing work
+#### Create: CAPABILITIES.json
+```json
+{
+  "_description": "Update this for your environment",
+  "environment": "unknown",
+  "llm_model": "unknown",
+  "tools_available": {
+    "file_read": true,
+    "file_write": true,
+    "code_execution": false,
+    "shell_access": false
+  },
+  "notes": "Please update this file for your specific LLM/environment."
+}
+```
 
-#### 5.5 Archive Audit to Project Catalog
-Move/copy to `.project-catalog/`:
-- `.takeover/audit-report.md` → `.project-catalog/decisions/takeover-audit.md`
-- `.takeover/executive-summary.md` → `.project-catalog/decisions/takeover-summary.md`
-
-#### 5.6 Update START_HERE.md
-Add takeover context:
+#### Create: LESSONS_LEARNED.md
 ```markdown
-## Project History
+# Lessons Learned
 
-This project was taken over on {date}.
-- Original audit: `.takeover/audit-report.md`
-- Chosen path: Option {X} - {name}
-- Pre-takeover snapshot: `.checkpoints/pre-takeover/`
+## From Takeover Audit
+
+<!-- Pre-populated from audit findings that represent lessons -->
+
+{List any patterns or anti-patterns discovered in the audit that should be avoided going forward}
+
+---
+
+## Ongoing Lessons
+
+<!-- Add new lessons below as they're discovered -->
 ```
 
-### Transition Complete
-Notify user:
+#### Create: NON_GOALS.md
+(Standard UDO non-goals content)
+
+#### Create: OVERSIGHT_DASHBOARD.md
+(Standard UDO oversight dashboard content)
+
+---
+
+### Step 5.4: Create Folder Structure
+
 ```
-✅ Takeover complete!
+.agents/
+.agents/_archive/
+.inputs/
+.inputs/manifest.json
+.outputs/
+.outputs/_drafts/
+.templates/
+.templates/agent.md
+.templates/handoff.md
+.templates/session.md
+.project-catalog/
+.project-catalog/agents/
+.project-catalog/handoffs/
+.project-catalog/decisions/
+.project-catalog/sessions/
+.project-catalog/errors/
+.project-catalog/archive/
+.checkpoints/
+.checkpoints/pre-takeover/   (already created)
+.rules/
+.rules/code-standards.md
+.rules/content-guidelines.md
+.rules/data-validation.md
+.memory/
+.memory/working/
+.memory/canonical/
+.memory/disposable/
+```
+
+---
+
+### Step 5.5: Copy Audit Agents to .agents/
+Transform audit agents into active agents:
+
+- `.takeover/agent-templates/code-quality-auditor.md` → `.agents/code-quality-specialist.md`
+- `.takeover/agent-templates/security-auditor.md` → `.agents/security-specialist.md`
+- etc.
+
+Rename from "auditor" to "specialist" - they now do work, not just audit.
+
+---
+
+### Step 5.6: Archive Audit to Project Catalog
+Copy key audit documents:
+- `.takeover/audit-report.md` → `.project-catalog/decisions/{date}-takeover-audit.md`
+- `.takeover/executive-summary.md` → `.project-catalog/decisions/{date}-takeover-summary.md`
+- `.takeover/options-breakdown.md` → `.project-catalog/decisions/{date}-takeover-options.md`
+
+---
+
+### Step 5.7: Create Transition Session Log
+Create `.project-catalog/sessions/{date}-takeover-transition.md`:
+
+```markdown
+# Session: {date} - Takeover Transition
+
+LLM: {model used}
+Type: Takeover Transition
+
+## Summary
+Project takeover completed. Transitioned from audit to active orchestration.
+
+## Takeover Results
+- Discovery: Complete
+- Executive Summary: Verified by user
+- Audit: Complete ({X} agents deployed)
+- Option Chosen: {X} - {name}
+
+## Findings Converted
+- Critical: {N} todos
+- Important: {N} todos  
+- Improvements: {N} todos (if Option C/D)
+- Total: {N} todos
+
+## Checkpoint Created
+- pre-takeover: Full project snapshot before any changes
+
+## Next Session Should
+1. Read ORCHESTRATOR.md (not TAKEOVER_ORCHESTRATOR.md)
+2. Review top priority todos
+3. Begin work on first critical item
+```
+
+---
+
+### Step 5.8: Final Handoff Message
+
+Display this to the user:
+
+```
+═══════════════════════════════════════════════════════════════
+✅ TAKEOVER COMPLETE
+═══════════════════════════════════════════════════════════════
 
 Summary:
-- Audit findings converted to {X} todos
-- {Y} critical items flagged as blockers
-- Pre-takeover checkpoint saved
-- Full UDO system installed
+- Option chosen: {X} - {name}
+- Todos created: {N} ({critical} critical, {important} important)
+- Pre-takeover checkpoint: .checkpoints/pre-takeover/
+- Full UDO system: Installed
 
-You can now use standard UDO commands:
-- "Resume this project" - Start working on todos
-- "Give me an oversight report" - Check status
-- "Rollback to checkpoint pre-takeover" - Undo everything
+What changed:
+- Created: ORCHESTRATOR.md, START_HERE.md, PROJECT_STATE.json
+- Created: .agents/, .outputs/, .project-catalog/, etc.
+- Preserved: .takeover/ (your audit history)
 
-The original audit is preserved in .takeover/ for reference.
+═══════════════════════════════════════════════════════════════
+🔄 IMPORTANT: SWITCH INSTRUCTIONS NOW
+═══════════════════════════════════════════════════════════════
+
+From now on, I should read ORCHESTRATOR.md for instructions,
+NOT TAKEOVER_ORCHESTRATOR.md.
+
+To continue, tell me:
+  "Read ORCHESTRATOR.md and resume this project"
+
+Or if you're switching to a different AI:
+  "Read START_HERE.md and continue"
+
+═══════════════════════════════════════════════════════════════
+SAFETY: To undo everything and restore the original project:
+  "Rollback to checkpoint pre-takeover"
+═══════════════════════════════════════════════════════════════
 ```
+
+---
+
+### Transition Checklist
+
+Before declaring transition complete, verify:
+
+- [ ] Pre-takeover checkpoint created
+- [ ] ORCHESTRATOR.md created
+- [ ] START_HERE.md created (with takeover context)
+- [ ] PROJECT_STATE.json created (with todos from audit)
+- [ ] PROJECT_META.json created
+- [ ] CAPABILITIES.json created
+- [ ] All folders created
+- [ ] Audit agents copied to .agents/
+- [ ] Audit archived to .project-catalog/decisions/
+- [ ] Session log created
+- [ ] User shown handoff message
+
+**Only after all items checked: Declare takeover complete.**
 
 ---
 
