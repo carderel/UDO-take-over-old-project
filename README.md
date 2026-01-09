@@ -1,122 +1,186 @@
-# UDO Takeover - Project Audit & Orchestration
+# UDO - Universal Dynamic Orchestrator v4
 
-**Take over existing projects with confidence.**
+**The AI project management system that works with any LLM.**
 
-When you inherit a codebase, acquire a project, or return to old work, UDO Takeover gives you a structured way to understand what exists, assess its quality, and transition to active management.
+Switch between Claude, GPT, Gemini, or any other AI mid-project without losing context. Built with circuit breakers, layered rule hierarchy, and human oversight for real-world reliability.
 
 ## Quick Install
 
-Run this in the project you want to take over:
-
 **Mac/Linux/WSL:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/carderel/UDO-take-over-old-project/main/install-takeover.sh | bash
+curl -fsSL https://raw.githubusercontent.com/carderel/UDO-universal-orchestrator-v4/main/install.sh | bash
 ```
 
 **Windows PowerShell:**
 ```powershell
-irm https://raw.githubusercontent.com/carderel/UDO-take-over-old-project/main/install-takeover.ps1 | iex
+irm https://raw.githubusercontent.com/carderel/UDO-universal-orchestrator-v4/main/install.ps1 | iex
 ```
 
-## What It Does
+## What Makes UDO Different
+
+| Problem | UDO Solution |
+|---------|--------------|
+| AI forgets context between sessions | Full documentation trail + organized memory |
+| Can't switch LLMs mid-project | Everything in files any AI can read |
+| AI repeats the same mistakes | Layered rule system with auto-updating templates |
+| AI ignores critical rules | `HARD_STOPS.md` - absolute rules that NEVER get overridden |
+| Rules pile up and choke the system | 4-layer hierarchy with caps and graduation |
+| AI produces "confident nonsense" | Circuit breakers + confidence thresholds |
+| No visibility into what's happening | `OVERSIGHT_DASHBOARD.md` + health reports |
+| Scope creep | `NON_GOALS.md` + explicit boundaries |
+| Token bloat on long projects | Context Janitor auto-archives completed work |
+| Different LLMs have different capabilities | `CAPABILITIES.json` environment awareness |
+
+## Rule Hierarchy
+
+| Layer | Location | Purpose | Max Items | Override? |
+|-------|----------|---------|-----------|-----------|
+| 0 | `HARD_STOPS.md` | Absolute rules | ~15 | Never by AI |
+| 1 | `.rules/*.md` | Detailed standards | Unlimited | With justification |
+| 2 | `.agents/*.md` | Agent-specific rules | ~15/agent | By orchestrator |
+| 3 | `LESSONS_LEARNED.md` | Recent/situational | ~20 active | Easily |
+
+## Project Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│ PHASE 1: DISCOVERY                                          │
-│ AI scans project structure, tech stack, documentation       │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│ PHASE 2: EXECUTIVE SUMMARY                                  │
-│ AI presents understanding for your verification             │
-│ YOU confirm or correct before proceeding                    │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│ PHASE 3: AUDIT                                              │
-│ Specialist agents assess: structure, code quality,          │
-│ security, tests, documentation, performance, etc.           │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│ PHASE 4: SYNTHESIS                                          │
-│ Compiled audit report + options breakdown                   │
-│ YOU choose: Quick Wins / Stabilize / Modernize / Rebuild    │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│ PHASE 5: TRANSITION                                         │
-│ Full UDO installed, findings converted to todos,            │
-│ pre-takeover checkpoint saved, ready to work                │
-└─────────────────────────────────────────────────────────────┘
+your-project/
+├── START_HERE.md                # 🚀 Quick onboarding (AI reads first)
+├── ORCHESTRATOR.md              # 🧠 Operating instructions
+├── HARD_STOPS.md                # 🛑 Absolute rules (Layer 0)
+├── PROJECT_STATE.json           # 📊 Current status and todos
+├── PROJECT_META.json            # 📋 Project context
+├── CAPABILITIES.json            # 🔧 Environment capabilities
+├── LESSONS_LEARNED.md           # 🎓 Situational lessons (Layer 3)
+├── NON_GOALS.md                 # 🚫 Scope boundaries
+├── OVERSIGHT_DASHBOARD.md       # 🎛️ Human monitoring
+│
+├── .agents/                     # 🤖 Specialist definitions (Layer 2)
+├── .rules/                      # ✅ Quality standards (Layer 1)
+├── .inputs/                     # 📥 User-provided files
+├── .outputs/                    # 📤 Deliverables
+├── .templates/                  # 📝 Blueprints
+├── .project-catalog/            # 📚 Full history + archive
+├── .checkpoints/                # 💾 Saved snapshots
+└── .memory/                     # 🧠 Working/canonical/disposable
 ```
 
-## Use Cases
+## Usage
 
-- **Inherited codebase** - Previous developer left, need to understand what exists
-- **Client handoff** - Agency taking over project from another agency
-- **Acquisition** - Assessing acquired company's technical assets
-- **Project revival** - Returning to your own old project after time away
-- **Compliance audit** - Systematic assessment against requirements
-- **New team member** - Structured onboarding to existing project
+### Start a New Project
+```
+Read START_HERE.md and begin.
+```
 
-## After Takeover
+### Resume an Existing Project
+```
+Resume this project.
+```
 
-You get the full UDO system with:
-- Audit findings converted to prioritized todos
-- Pre-takeover checkpoint (can undo everything)
-- Audit agents available as specialists
-- Complete audit trail preserved
-- Standard UDO orchestration ready to go
+### Get a Health Check
+```
+Give me an oversight report.
+```
 
-## Audit Agents
+### Switch LLMs Mid-Project
+Tell the new AI:
+```
+Read START_HERE.md and continue where the last AI left off.
+```
 
-Based on project type, these specialists assess different aspects:
+## Key Features
 
-| Agent | What It Assesses |
-|-------|------------------|
-| structure-auditor | Architecture, file organization, patterns |
-| documentation-auditor | Docs quality, gaps, accuracy |
-| code-quality-auditor | Standards, smells, complexity |
-| security-auditor | Vulnerabilities, secrets, access |
-| test-auditor | Coverage, quality, gaps |
-| performance-auditor | Bottlenecks, optimization opportunities |
-| dependency-auditor | Outdated, vulnerable, unused packages |
-| ux-auditor | Usability, accessibility |
-| data-auditor | Schema, integrity, migrations |
+### 🛑 Circuit Breakers
+Automatic protection against runaway failures:
+- Halts after 3 consecutive task failures
+- Flags outputs with low confidence (< 40%)
+- Pauses when error rate exceeds 30%
+- Detects circular handoffs
+- Triggers archival at 80% context usage
 
-## Safety Features
+### ⚖️ Arbiter Protocol
+Deterministic conflict resolution:
+1. Canonical memory wins
+2. Validation rules as tiebreaker
+3. More recent validated data wins
+4. Higher confidence wins
+5. Human decides if still unresolved
 
-- **Read-only until you decide** - No changes during audit
-- **Pre-takeover checkpoint** - Can always roll back
-- **User verification gates** - AI stops and waits for your confirmation
-- **Sensitive data protection** - Secrets flagged but never exposed in reports
-- **Explicit uncertainties** - AI tells you what it couldn't determine
+### 🧠 Memory Discipline
+Three-tier memory system:
+- **Working**: Session scratch (cleared each session)
+- **Canonical**: Verified facts (permanent)
+- **Disposable**: Speculation (cleared on resolution)
 
-## Commands
+### 🎛️ Human Oversight
+Built for human supervision:
+- Quick health reports
+- Warning signs guide
+- Intervention commands
+- Cognitive load reducers
+- Full audit trail
+
+### 📦 Context Janitor
+Prevents token bloat:
+- Auto-archives completed phases
+- 3-sentence summaries
+- Full details preserved in archive
+- Triggers at 60% context usage
+
+### 🔧 Environment Awareness
+Adapts to your LLM:
+- `CAPABILITIES.json` defines available tools
+- Agents check before executing
+- Graceful handling of missing capabilities
+
+### 📈 Self-Optimizing
+Active learning system:
+- Lessons learned update agent templates
+- Templates improve over time
+- Learning persists across LLMs
+
+## Commands Reference
 
 | Command | What It Does |
 |---------|--------------|
-| `Start takeover` | Begin discovery phase |
-| `Verified` | Confirm AI's understanding |
-| `Correction: {text}` | Fix AI's misunderstanding |
-| `Start audit` | Deploy audit agents |
-| `Audit status` | Check audit progress |
-| `Generate report` | Compile findings |
-| `Show options` | See path options |
-| `Choose option {A/B/C/D}` | Select your path |
-| `Install UDO` | Complete transition |
-| `Abort takeover` | Stop process |
+| `Resume this project` | Load state and continue |
+| `Give me an oversight report` | Quick health check |
+| `Checkpoint this` | Manually save current state |
+| `List checkpoints` | Show all available checkpoints |
+| `Rollback to checkpoint [timestamp]` | Restore previous state |
+| `Disable auto-checkpoints` | Turn off automatic saves |
+| `Set auto-checkpoint interval to [N] todos` | Change save frequency |
+| `Pause all work` | Stop and await instructions |
+| `Override: [instruction]` | Human directive supersedes AI |
+| `Circuit breaker reset` | Clear triggered breakers |
 
 ## Compatible With
 
-Works with any LLM that can read markdown files:
-- ✅ Claude
-- ✅ ChatGPT / GPT-4
+- ✅ Claude (Web, API, VS Code, Cursor)
+- ✅ ChatGPT / GPT-4 / GPT-4o
 - ✅ Gemini
-- ✅ Cursor
 - ✅ GitHub Copilot
-- ✅ Local LLMs
+- ✅ Local LLMs (Ollama, LM Studio)
+- ✅ Any LLM that can read markdown files
+
+## Auto-Updates
+
+Run the install command again to check for updates:
+```bash
+curl -fsSL https://raw.githubusercontent.com/carderel/UDO-universal-orchestrator-v4/main/install.sh | bash
+```
+
+Updates preserve your project data and prompt before making changes.
+
+## Philosophy
+
+UDO is built on these principles:
+
+1. **Coordinate, don't execute** - The orchestrator delegates to specialists
+2. **Document everything** - Full audit trail for debugging and handoffs
+3. **Fail safely** - Circuit breakers prevent cascading failures
+4. **Learn continuously** - Mistakes improve the system
+5. **Respect boundaries** - Clear non-goals prevent scope creep
+6. **Support humans** - Oversight is easy, not burdensome
 
 ## License
 

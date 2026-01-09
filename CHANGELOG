@@ -1,52 +1,145 @@
-# UDO Takeover Changelog
+# UDO Changelog
 
-## v1.1.0 (2025-01-09)
+## v4.4.0 (2025-01-09)
+### Layered Rule System
+Complete overhaul of how lessons and rules are organized and enforced.
 
-### Expanded Phase 5 Transition
-- **Explicit step-by-step instructions** for AI to follow during transition
-- **User confirmation gate** before making any changes
-- **Pre-takeover checkpoint** created FIRST before any modifications
-- **Detailed file creation instructions** for all UDO core files
-- **Clear handoff message** telling user to switch from TAKEOVER_ORCHESTRATOR.md to ORCHESTRATOR.md
-- **Transition checklist** to verify all steps completed
-- **Rollback instructions** prominently displayed
+#### Hard Stops (Layer 0)
+- **HARD_STOPS.md** - Absolute rules that are NEVER violated
+- Pre-populated with security, data protection, and compliance rules
+- AI cannot override - only humans editing the file directly can change
+- Violation response protocol with clear escalation
 
-### Clearer Handoff
-- AI now explicitly told to stop reading TAKEOVER_ORCHESTRATOR.md after transition
-- User given exact command to continue: "Read ORCHESTRATOR.md and resume this project"
-- Safety rollback command highlighted: "Rollback to checkpoint pre-takeover"
+#### Four-Layer Hierarchy
+| Layer | Location | Purpose | Override? |
+|-------|----------|---------|-----------|
+| 0 | HARD_STOPS.md | Absolute rules | Never by AI |
+| 1 | .rules/*.md | Detailed standards | With justification |
+| 2 | .agents/*.md | Agent-specific rules | By orchestrator |
+| 3 | LESSONS_LEARNED.md | Recent/situational | Easily |
 
-## v1.0.0 (2025-01-08)
+#### Enhanced Teaching Protocol
+- **Correction capture** - AI asks "Should I add this as a lesson?"
+- **Clarifying questions** - Context, scope, rule vs preference
+- **Conflict detection** - Checks for contradicting lessons before adding
+- **Layer determination** - AI suggests appropriate layer for new lessons
+- **Lesson lifecycle** - Graduate stable lessons to higher layers
 
-### Initial Release
+#### Lesson Review Protocol
+- Auto-prompt at 20 lessons to review and graduate
+- Auto-prompt at 15 rules per agent to consolidate
+- 30-day review reminder
+- Agent Lesson Index tracking
 
-#### Takeover Phases
-- **Discovery**: Automated project scanning (structure, tech stack, docs, dependencies)
-- **Executive Summary**: AI presents understanding for user verification
-- **Audit**: Specialist agents assess code quality, security, tests, etc.
-- **Synthesis**: Compiled report with options (Quick Wins / Stabilize / Modernize / Rebuild)
-- **Transition**: Full UDO installation with findings as todos
+#### Other Improvements
+- Fixed interactive prompts when script is piped (curl | bash now works)
+- Directive 0 added: Hard Stops Are Absolute
+- START_HERE.md updated with HARD_STOPS.md in quick start
+- Output message shows full layer hierarchy
 
-#### Audit Agents
-- structure-auditor: Architecture and organization
-- documentation-auditor: Docs quality and gaps
-- code-quality-auditor: Standards, smells, complexity
-- security-auditor: Vulnerabilities (with redaction)
-- test-auditor: Coverage and quality
-- performance-auditor: Bottlenecks
-- dependency-auditor: Package health
-- ux-auditor: Usability and accessibility
-- data-auditor: Schema and integrity
+## v4.3.1 (2025-01-08)
+### Auto-Checkpoints
+- **Automatic checkpoint triggers** - Configurable in PROJECT_STATE.json
+  - After every N todos completed (default: 3)
+  - When a phase completes
+  - At session end
+  - Before risky operations
+- **Checkpoint hygiene** - Auto-cleanup keeps last 10, option to preserve specific checkpoints
+- **New commands**: `List checkpoints`, `Keep checkpoint`, `Disable/Enable auto-checkpoints`, `Set auto-checkpoint interval`
+- **Oversight report** now shows checkpoint status and todos since last checkpoint
 
-#### Safety Features
-- Read-only audit (no changes until user decides)
-- Pre-takeover checkpoint
-- User verification gates
-- Sensitive data redaction
-- Explicit uncertainty documentation
+## v4.3.0 (2025-01-08)
+### Major Features: Robustness & Safety
 
-#### Integration
-- Seamless transition to full UDO system
-- Findings converted to prioritized todos
-- Audit agents retained as specialists
-- Complete audit trail preserved
+#### Circuit Breakers (C2)
+- Automatic halt on 3x task failure
+- Confidence thresholds (flag if < 40%)
+- Error rate monitoring (> 30% triggers pause)
+- Circular handoff detection
+- Conflict detection between validated outputs
+- Context usage monitoring (> 80% triggers archive)
+
+#### Arbiter Protocol (C1)
+- Deterministic conflict resolution hierarchy
+- Canonical memory wins over working memory
+- Validation rules as tiebreaker
+- Recency and confidence as secondary factors
+- Human override with audit logging
+
+#### Memory Discipline (C5)
+- `.memory/working/` - Session scratch (cleared each session)
+- `.memory/canonical/` - Verified permanent facts
+- `.memory/disposable/` - Speculation (cleared on resolution)
+- Clear rules for what goes where
+- Templates for canonical facts
+
+#### Human Oversight UX (C6)
+- `OVERSIGHT_DASHBOARD.md` - Quick health checks
+- Oversight report command
+- Warning signs guide (yellow/red flags)
+- Intervention commands documented
+- Cognitive load reducers
+
+#### Non-Goals (C7)
+- `NON_GOALS.md` - Explicit scope boundaries
+- What UDO is NOT (8 items)
+- When to use something else
+- Scope creep warning signs
+
+#### Context Janitor (G1)
+- Archive Protocol for completed phases
+- 3-sentence summary compression
+- `.project-catalog/archive/` for full details
+- Automatic trigger at 60%+ context usage
+- Templates for archive summaries
+
+#### Environment Awareness (G2)
+- `CAPABILITIES.json` - Define LLM/environment tools
+- Agents check capabilities before executing
+- Adapts approach based on available tools
+- Prevents failures from missing capabilities
+
+#### Active Template Evolution (G3)
+- Lessons learned auto-update agent templates
+- `## Learned Rules` section in templates
+- Template evolution logged in sessions
+- Self-optimizing agent definitions
+
+### Other Improvements
+- Agents now report confidence levels
+- Session template includes oversight report
+- Error template includes circuit breaker status
+- Enhanced PROJECT_STATE.json with circuit_breaker and context_health
+- All rules updated to require confidence statements
+
+## v4.2.0 (2025-01-08)
+### Features
+- START_HERE.md - Quick onboarding
+- LESSONS_LEARNED.md - Persistent learning
+- PROJECT_META.json - Project context
+- .inputs/ + manifest.json - Asset management
+- .outputs/_drafts/ - Standardized deliverables
+- .checkpoints/ - Snapshot system
+- .rules/ - Quality standards (code, content, data)
+- .project-catalog/errors/ - Error logging
+
+### Protocols
+- Resume Protocol
+- Collaboration Protocol
+- Checkpoint Protocol
+- Teaching Protocol
+
+## v4.1.0 (2025-01-08)
+- Added `.project-catalog/` for documentation history
+- Agent work logs and handoff tracking
+- Session summaries for LLM switching
+- Decision logging with rationale
+- Auto-update checking
+
+## v4.0.0 (2025-01-08)
+- Initial release
+- Self-contained install.sh
+- ORCHESTRATOR.md with coordination rules
+- PROJECT_STATE.json for status tracking
+- .agents/ for specialist definitions
+- .templates/ for blueprints
